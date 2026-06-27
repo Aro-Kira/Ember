@@ -39,7 +39,8 @@ import { useToast } from './hooks/useToast';
 
 // ============ INLINE API CLIENT ============
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api/v1';
+const BACKEND_ORIGIN = API_BASE_URL.startsWith('http') ? new URL(API_BASE_URL).origin : '';
 
 class ApiClient {
   token: string | null;
@@ -597,7 +598,7 @@ export default function App() {
         ...a,
         coverImage: a.cover_image
           ? a.cover_image.startsWith('/uploads/')
-            ? 'http://localhost:3001' + a.cover_image
+            ? BACKEND_ORIGIN + a.cover_image
             : a.cover_image
           : null,
       }));

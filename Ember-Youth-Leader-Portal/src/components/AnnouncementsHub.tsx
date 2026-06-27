@@ -23,6 +23,9 @@ import {
 import { Announcement } from '../types';
 import toast from '../hooks/useToast.tsx';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api/v1';
+const BACKEND_ORIGIN = API_BASE_URL.startsWith('http') ? new URL(API_BASE_URL).origin : '';
+
 interface AnnouncementsHubProps {
   announcements: Announcement[];
   onAddAnnouncement: (announcement: Omit<Announcement, 'id' | 'views' | 'date' | 'authorName' | 'authorAvatar'>) => void;
@@ -132,7 +135,7 @@ export default function AnnouncementsHub({
     setFormPriority(announcement.priority);
     setFormAudience(announcement.targetAudience);
     const coverUrl = announcement.coverImage || '';
-    setFormCover(coverUrl.startsWith('/uploads/') ? 'http://localhost:3001' + coverUrl : coverUrl);
+    setFormCover(coverUrl.startsWith('/uploads/') ? BACKEND_ORIGIN + coverUrl : coverUrl);
   };
 
   const handleCancelEdit = () => {
@@ -176,7 +179,7 @@ export default function AnnouncementsHub({
       const formData = new FormData();
       formData.append('coverImage', file);
       const token = localStorage.getItem('rg_leader_access_token');
-      const response = await fetch('http://localhost:3001/api/v1/upload', {
+      const response = await fetch(`${BACKEND_ORIGIN}/api/v1/upload`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
@@ -186,7 +189,7 @@ export default function AnnouncementsHub({
         throw new Error(err.error || 'Upload failed');
       }
       const data = await response.json();
-      setFormCover('http://localhost:3001' + data.url);
+      setFormCover(BACKEND_ORIGIN + data.url);
     } catch (err: any) {
       toast.error('Upload failed: ' + (err.message || 'Unknown error'));
       setFormCover('');
