@@ -9,7 +9,7 @@ const pool = new pg.Pool({
   database: process.env.DB_NAME || process.env.PGDATABASE || 'risktaker_youth',
   user: process.env.DB_USER || process.env.PGUSER || 'postgres',
   password: process.env.DB_PASSWORD || process.env.PGPASSWORD || '',
-  max: 20,
+  max: process.env.NETLIFY ? 1 : 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
 });

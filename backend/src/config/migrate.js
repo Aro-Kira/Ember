@@ -168,9 +168,9 @@ const createIndexes = `
 
 async function migrate() {
   const client = new pg.Client({
-    host: process.env.DB_HOST || process.env.PGHOST || 'localhost',
+    host: process.env.DB_HOST || process.env.PGHOST || 'db.vgaehagmmiquanwouvkq.supabase.co',
     port: parseInt(process.env.DB_PORT || process.env.PGPORT || '5432'),
-    database: process.env.DB_NAME || process.env.PGDATABASE || 'risktaker_youth',
+    database: process.env.DB_NAME || process.env.PGDATABASE || 'postgres',
     user: process.env.DB_USER || process.env.PGUSER || 'postgres',
     password: process.env.DB_PASSWORD || process.env.PGPASSWORD || '',
   });

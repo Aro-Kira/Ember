@@ -1,0 +1,11 @@
+{
+  "name": "ember-monorepo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "dependencies": {
+    "serverless-http": "^3.2.0"
+  }
+}

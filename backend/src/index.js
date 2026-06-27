@@ -172,11 +172,13 @@ app.use((err, req, res, next) => {
 
 const server = createServer(app);
 
-// Start server
-server.listen(PORT, () => {
-  console.log(`Risktaker Generation Backend running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`CORS origins: ${Array.isArray(corsOrigins) ? corsOrigins.join(', ') : corsOrigins}`);
-});
+// Start server (skip in Netlify Functions — handled by serverless-http)
+if (!process.env.NETLIFY) {
+  server.listen(PORT, () => {
+    console.log(`Risktaker Generation Backend running on port ${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`CORS origins: ${Array.isArray(corsOrigins) ? corsOrigins.join(', ') : corsOrigins}`);
+  });
+}
 
 export default app;
