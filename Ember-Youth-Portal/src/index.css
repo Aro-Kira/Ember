@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@theme {
+  --font-hanken: "Hanken Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Risktaker Generation Design System Colors */
+  --color-surface: #050505;
+  --color-surface-dim: #050505;
+  --color-surface-bright: #0d1117;
+  --color-surface-container-lowest: #050505;
+  --color-surface-container-low: #0a0a0f;
+  --color-surface-container: #0d1117;
+  --color-surface-container-high: #161b22;
+  --color-surface-container-highest: #21262d;
+  --color-on-surface: #ffffff;
+  --color-on-surface-variant: #8b949e;
+  --color-inverse-surface: #ffffff;
+  --color-inverse-on-surface: #050505;
+  --color-outline: rgba(255, 255, 255, 0.12);
+  --color-outline-variant: rgba(255, 255, 255, 0.06);
+  --color-surface-tint: #ff6a00;
+
+  /* Primary: Safety Orange (CTA, buttons, active states) */
+  --color-primary: #ff6a00;
+  --color-on-primary: #ffffff;
+  --color-primary-container: rgba(255, 106, 0, 0.12);
+  --color-on-primary-container: #ff8800;
+  --color-inverse-primary: #ff8800;
+
+  /* Secondary: Electric Blue (links, secondary actions) */
+  --color-secondary: #0066cc;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #001f4d;
+  --color-on-secondary-container: #f1f5f9;
+
+  /* Tertiary: Vivid Cyan (accents, borders, highlights) */
+  --color-tertiary: #00c3ff;
+  --color-on-tertiary: #050505;
+  --color-tertiary-container: #003f5c;
+  --color-on-tertiary-container: #cceeff;
+
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+}
+
+/* Light Theme Overrides */
+[data-theme="light"] {
+  --color-surface: #f8f9fa;
+  --color-surface-dim: #f0f0f0;
+  --color-surface-bright: #ffffff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f8f9fa;
+  --color-surface-container: #ffffff;
+  --color-surface-container-high: #f0f0f0;
+  --color-surface-container-highest: #e4e6e8;
+  --color-on-surface: #1a1a1a;
+  --color-on-surface-variant: #5a5a5a;
+  --color-inverse-surface: #1a1a1a;
+  --color-inverse-on-surface: #f0f0f0;
+  --color-outline: rgba(0, 0, 0, 0.12);
+  --color-outline-variant: rgba(0, 0, 0, 0.08);
+  --color-surface-tint: #e55d00;
+
+  --color-primary: #e55d00;
+  --color-on-primary: #ffffff;
+  --color-primary-container: rgba(229, 93, 0, 0.08);
+  --color-on-primary-container: #c45100;
+  --color-inverse-primary: #c45100;
+
+  --color-secondary: #0052a3;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #d6e8ff;
+  --color-on-secondary-container: #001a33;
+
+  --color-tertiary: #0098cc;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #cceeff;
+  --color-on-tertiary-container: #003344;
+
+  --color-error: #dc2626;
+  --color-on-error: #ffffff;
+  --color-error-container: #fde8e8;
+  --color-on-error-container: #7f1d1d;
+}
+
+/* Custom Scrollbar and utility styles for Risktaker Generation Portal */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.rg-glow {
+  box-shadow: 0 0 20px 2px rgba(255, 106, 0, 0.08);
+}
+
+.rg-glow-strong {
+  box-shadow: 0 0 30px 4px rgba(255, 106, 0, 0.15);
+}
+
+body {
+  font-family: "Hanken Grotesk", sans-serif;
+  background-color: var(--color-background, #050505);
+  color: var(--color-on-surface, #ffffff);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Animations for Splash Screen & Authentication */
+@keyframes risk-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 15px rgba(255, 106, 0, 0.4));
+  }
+  50% {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 30px rgba(255, 106, 0, 0.7));
+  }
+}
+
+@keyframes progress-grow {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-risk-pulse {
+  animation: flame-pulse 2s infinite ease-in-out;
+}
+
+.animate-progress-loading {
+  animation: progress-grow 2.2s linear forwards;
+}
+
+.animate-float {
+  animation: float 4s infinite ease-in-out;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+}
+
+.glass-auth-card {
+  background: var(--color-surface-container);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-outline-variant);
+}

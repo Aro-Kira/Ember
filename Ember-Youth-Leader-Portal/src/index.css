@@ -1,0 +1,378 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Risktaker Generation Design System Colors */
+  --color-surface: #0a0a0f;
+  --color-surface-dim: #050505;
+  --color-surface-bright: #0d1117;
+  --color-surface-container-lowest: #050505;
+  --color-surface-container-low: #0a0a0f;
+  --color-surface-container: #0d1117;
+  --color-surface-container-high: #161b22;
+  --color-surface-container-highest: #21262d;
+  --color-on-surface: #ffffff;
+  --color-on-surface-variant: #8b949e;
+  --color-surface-variant: #1a1f27;
+
+  /* Primary: Safety Orange (CTA, buttons, active states) */
+  --color-primary: #ff6a00;
+  --color-on-primary: #ffffff;
+  --color-primary-container: rgba(255, 106, 0, 0.12);
+  --color-on-primary-container: #ff8800;
+
+  /* Secondary: Electric Blue (links, secondary actions) */
+  --color-secondary: #0066cc;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #001f4d;
+  --color-on-secondary-container: #f1f5f9;
+
+  /* Tertiary: Vivid Cyan (accents, borders, highlights) */
+  --color-tertiary: #00c3ff;
+  --color-on-tertiary: #003344;
+  --color-tertiary-container: #003f5c;
+  --color-on-tertiary-container: #cceeff;
+
+  --color-error: #ef4444;
+  --color-on-error: #ffffff;
+  --color-background: #050505;
+  --color-on-background: #ffffff;
+  --color-outline-variant: rgba(255, 255, 255, 0.06);
+  --color-outline: rgba(255, 255, 255, 0.12);
+}
+
+/* Light Theme Overrides */
+[data-theme="light"] {
+  --color-surface: #f8f9fa;
+  --color-surface-dim: #f0f0f0;
+  --color-surface-bright: #ffffff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f8f9fa;
+  --color-surface-container: #ffffff;
+  --color-surface-container-high: #f0f0f0;
+  --color-surface-container-highest: #e4e6e8;
+  --color-on-surface: #1a1a1a;
+  --color-on-surface-variant: #5a5a5a;
+  --color-surface-variant: #d8dce0;
+
+  --color-primary: #e55d00;
+  --color-on-primary: #ffffff;
+  --color-primary-container: rgba(229, 93, 0, 0.08);
+  --color-on-primary-container: #c45100;
+
+  --color-secondary: #0052a3;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #d6e8ff;
+  --color-on-secondary-container: #001a33;
+
+  --color-tertiary: #0098cc;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #cceeff;
+  --color-on-tertiary-container: #003344;
+
+  --color-error: #dc2626;
+  --color-on-error: #ffffff;
+  --color-background: #f0f0f0;
+  --color-on-background: #1a1a1a;
+  --color-outline-variant: rgba(0, 0, 0, 0.08);
+  --color-outline: rgba(0, 0, 0, 0.12);
+}
+
+/* Custom styles for high-fidelity interactive elements */
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Custom Scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #161b22;
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #ff6a00;
+}
+
+/* Glass panel */
+.glass-panel {
+  background: var(--color-surface-container);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-outline-variant);
+}
+
+.glass-card {
+  background: var(--color-surface-container-low);
+  border: 1px solid var(--color-outline-variant);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 18px var(--color-primary-container);
+}
+
+/* Scanner scanning line animation */
+@keyframes scan {
+  0% { top: 10%; opacity: 0; }
+  50% { opacity: 1; }
+  100% { top: 90%; opacity: 0; }
+}
+
+.scanner-line {
+  animation: scan 2.5s linear infinite;
+}
+
+/* Success Pulse for scanner active state */
+@keyframes success-pulse {
+  0%, 100% { border-color: #ff6a00; box-shadow: 0 0 10px rgba(255, 106, 0, 0.3); }
+  50% { border-color: #7a2f00; box-shadow: 0 0 0px rgba(255, 106, 0, 0); }
+}
+
+.success-pulse {
+  animation: success-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Pulse animation for scanner targeting brackets */
+@keyframes scan-bracket {
+  0%, 100% { border-color: rgba(255, 106, 0, 0.9); }
+  50% { border-color: rgba(255, 106, 0, 0.3); }
+}
+
+.scan-bracket-pulse {
+  animation: scan-bracket 1.5s ease-in-out infinite;
+}
+
+/* Toast slide-in animation */
+@keyframes slide-in {
+  0% { transform: translateX(100%); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+/* html5-qrcode scanner overrides */
+#qr-reader {
+  border: none !important;
+  background: transparent !important;
+}
+
+#qr-reader__scan_region {
+  background: transparent !important;
+  min-height: 280px !important;
+  position: relative !important;
+}
+
+#qr-reader__scan_region video {
+  border-radius: 12px !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* Hide the library's canvas (draws dark overlay + white brackets) */
+#qr-reader__scan_region canvas,
+#qr-reader canvas {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  position: absolute !important;
+  pointer-events: none !important;
+}
+
+/* Hide any nested divs that draw overlays inside scan_region */
+#qr-reader__scan_region > div > div:not(:first-child) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Kill any element inside scan_region that is NOT the video */
+#qr-reader__scan_region *:not(video):not(.scan-box-overlay):not(.scan-box-corner):not(.scan-box-line) {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+/* Hide the library logo/icon */
+#qr-reader img {
+  display: none !important;
+}
+
+#qr-reader__header_span {
+  display: none !important;
+}
+
+/* Custom scan box overlay */
+.scan-box-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 230px;
+  height: 230px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Dark vignette outside the scan box (rectangular cutout) */
+.scan-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-mask-image:
+    linear-gradient(black, black),
+    linear-gradient(black, black);
+  -webkit-mask-composite: xor;
+  mask-image:
+    linear-gradient(black, black),
+    linear-gradient(black, black);
+  mask-composite: exclude;
+  mask-size: 100% 100%, 210px 210px;
+  mask-position: center;
+  mask-repeat: no-repeat;
+}
+
+.scan-box-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: #ff6a00;
+  border-style: solid;
+  border-width: 0;
+}
+
+.scan-box-corner.top-left {
+  top: 0; left: 0;
+  border-top-width: 3px;
+  border-left-width: 3px;
+  border-top-left-radius: 8px;
+}
+
+.scan-box-corner.top-right {
+  top: 0; right: 0;
+  border-top-width: 3px;
+  border-right-width: 3px;
+  border-top-right-radius: 8px;
+}
+
+.scan-box-corner.bottom-left {
+  bottom: 0; left: 0;
+  border-bottom-width: 3px;
+  border-left-width: 3px;
+  border-bottom-left-radius: 8px;
+}
+
+.scan-box-corner.bottom-right {
+  bottom: 0; right: 0;
+  border-bottom-width: 3px;
+  border-right-width: 3px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Scan line animation */
+.scan-box-line {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  height: 2px;
+  background: #ff6a00;
+  box-shadow: 0 0 8px #ff6a00, 0 0 16px rgba(255, 106, 0, 0.4);
+  animation: scanline 2s ease-in-out infinite;
+}
+
+@keyframes scanline {
+  0% { top: 4px; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: calc(100% - 6px); opacity: 0; }
+}
+
+#qr-reader__dashboard {
+  background: #161b22 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  padding: 12px !important;
+  color: #e6edf3 !important;
+}
+
+#qr-reader__dashboard span,
+#qr-reader__dashboard label {
+  color: #e6edf3 !important;
+  font-size: 12px !important;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace !important;
+}
+
+#qr-reader__dashboard select {
+  background: #0d1117 !important;
+  color: #e6edf3 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 8px !important;
+  padding: 6px 10px !important;
+  font-size: 11px !important;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace !important;
+  outline: none !important;
+}
+
+#qr-reader__dashboard select:focus {
+  border-color: #ff6a00 !important;
+  box-shadow: 0 0 0 1px #ff6a00 !important;
+}
+
+#qr-reader__dashboard_button {
+  background: #ff6a00 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 8px 16px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  cursor: pointer !important;
+  transition: opacity 0.2s !important;
+}
+
+#qr-reader__dashboard_button:hover {
+  opacity: 0.9 !important;
+}
+
+#qr-reader__dashboard_message {
+  color: #8b949e !important;
+  font-size: 11px !important;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace !important;
+  text-align: center !important;
+  padding: 8px !important;
+}
+
+#qr-reader__header_span {
+  display: none !important;
+}
+
+#qr-reader img {
+  display: none !important;
+}
+
